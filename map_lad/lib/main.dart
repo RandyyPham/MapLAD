@@ -1,49 +1,88 @@
+// Flutter code sample for
+
+// This sample shows an [AppBar] with two simple actions. The first action
+// opens a [SnackBar], while the second action navigates to a new page.
+
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'src/locations.dart' as locations;
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
+/// This Widget is the main application widget.
+class MyApp extends StatelessWidget {
+  static const String _title = 'Flutter Code Sample';
+
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: _title,
+      home: MyStatelessWidget(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
-  final Map<String, Marker> _markers = {};
-  Future<void> _onMapCreated(GoogleMapController controller) async {
-    final googleOffices = await locations.getGoogleOffices();
-    setState(() {
-      _markers.clear();
-      for (final office in googleOffices.offices) {
-        final marker = Marker(
-          markerId: MarkerId(office.name),
-          position: LatLng(office.lat, office.lng),
-          infoWindow: InfoWindow(
-            title: office.name,
-            snippet: office.address,
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
+
+void openPage(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(
+    builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Next page'),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.navigate_next),
+              tooltip: 'Next page',
+              onPressed: () {
+                openPage(context);
+              },
+            ),
+          ]
+        ),
+        body: const Center(
+          child: Text(
+            'This is the next page',
+            style: TextStyle(fontSize: 24),
           ),
-        );
-        _markers[office.name] = marker;
-      }
-    });
-  }
+        ),
+      );
+    },
+  ));
+}
+
+/// This is the stateless widget that the main application instantiates.
+class MyStatelessWidget extends StatelessWidget {
+  MyStatelessWidget({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    home: Scaffold(
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
-        title: const Text('MapLAD'),
-        backgroundColor: Colors.pink[700],
+        title: const Text('AppBar Demo'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add_alert),
+            tooltip: 'Show Snackbar',
+            onPressed: () {
+              scaffoldKey.currentState.showSnackBar(snackBar);
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.navigate_next),
+            tooltip: 'Next page',
+            onPressed: () {
+              openPage(context);
+            },
+          ),
+        ],
       ),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: const LatLng(33.3, -112),
-          zoom: 10.5,
+      body: const Center(
+        child: Text(
+          'This is the home page',
+          style: TextStyle(fontSize: 24),
         ),
-        markers: _markers.values.toSet(),
       ),
-    ),
-  );
+    );
+  }
 }
