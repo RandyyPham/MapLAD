@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
-import 'data/location_json_parser.dart';
+import 'data/destination_parser.dart';
 
 
 void main() {
@@ -16,6 +16,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var destinations = <Destination>{};
+
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
     final googleOffices = await locations.getGoogleOffices();
@@ -30,15 +32,8 @@ class _MyAppState extends State<MyApp> {
             snippet: office.address,
           ),
         );
-        final marker = Marker(
-          markerId: MarkerId(destination.name),
-          position: LatLng(office.lat, office.lng),
-          infoWindow: InfoWindow(
-            title: office.name,
-            snippet: office.address,
-          ),
-        );
         _markers[office.name] = marker;
+        destinations.add(findDestination());
       }
     });
   }

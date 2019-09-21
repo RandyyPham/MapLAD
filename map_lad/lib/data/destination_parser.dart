@@ -67,6 +67,7 @@ class Destination {
   //a word is an element in an across or an instance of an across?
 
   return new Destination(decoded['candidates'][0]['name'],decoded['candidates'][0]['formatted_address'],decoded['candidates'][0]['geometry']['location']['lat'],decoded['candidates'][0]['geometry']['location']['lng']);
+
   }
 
   //Loads the destination and allows it to be used.
@@ -77,7 +78,14 @@ class Destination {
     //Test printlines to verify destination is found
     print("TEST CASES HERE");
     print(destination.name);
+    print(destination.address);
+    print(destination.lat.toString());
+    print(destination.lng.toString());
   }
   String getDestination(Map decodedJson){
 
+  }
+  Destination findDestination(/*String jsonPath*/) async{
+    String jsonDestination = await _loadDestinationAsset();
+    return _parseJsonForDestination(jsonDestination);
   }
