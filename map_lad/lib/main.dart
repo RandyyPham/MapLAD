@@ -23,71 +23,33 @@ class MyApp extends StatelessWidget {
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
 
-void openPage(BuildContext context) {
-
-  Navigator.push(context, MaterialPageRoute(
-    builder: (BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Next page'),
-        ),
-        body: const Center(
-          child: Text(
-            'This is the next page',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      );
-    },
-  ));
-}
-
 /// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   MyStatelessWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    PageView(
-      children: <Widget>[
-        Container(
-          color: Colors.pink,
-        ),
-        Container(
-          color: Colors.green,
-        ),
-        Container(
-          color: Colors.blue,
-        ),
-      ],
-    );
-    /*return Scaffold(
-      key: scaffoldKey,
+    return Scaffold(
       appBar: AppBar(
-        title: const Text('AppBar Demo'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add_alert),
-            tooltip: 'Show Snackbar',
-            onPressed: () {
-              scaffoldKey.currentState.showSnackBar(snackBar);
-            },
+        title: Text("MapLAD"),
+        backgroundColor: Colors.pink,
+      ),
+      body: PageView(
+        children: <Widget>[
+          Container(
+            child: Center(child: Text("This is a page")),
+            color: Colors.pink,
           ),
-          IconButton(
-            icon: const Icon(Icons.navigate_next),
-            tooltip: 'Next page',
-            onPressed: () {
-              openPage(context);
-            },
+          Container(
+            child: Center(child: Text("Page 2?")),
+            color: Colors.green,
+          ),
+          Container(
+            child: Center(child: Text("Page 3 bby")),
+            color: Colors.blue,
           ),
         ],
       ),
-      body: const Center(
-        child: Text(
-          'This is the home page',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );*/
+    );
   }
 }
