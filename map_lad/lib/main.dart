@@ -10,9 +10,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final Map<String, Marker> _markers = {};
+  //final Map<String, Marker> _markers = {};
 
-  Future<void> _onMapCreated(GoogleMapController controller) async {
+  var textController = TextEditingController();
+
+  /*Future<void> _onMapCreated(GoogleMapController controller) async {
     final googleOffices = await locations.getGoogleOffices();
     setState(() {
       _markers.clear();
@@ -28,7 +30,7 @@ class _MyAppState extends State<MyApp> {
         _markers[office.name] = marker;
       }
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) =>
@@ -38,9 +40,70 @@ class _MyAppState extends State<MyApp> {
             title: const Text('MapLAD'),
             backgroundColor: Colors.pink[700],
           ),
-          body: Container(
-            child: TextField(),
+          body: Column(
+            children: <Widget>[
+              TextField(
+                controller: textController,
+              ),
+              FloatingActionButton(
+                onPressed: () {
+                  interpret(textController.text);
+                },
+                child: Icon(Icons.android),
+              ),
+            ],
+
           ),
         ),
       );
+
+  String interpret(String name) {
+
+    name = textController.text;
+
+    name = name.toLowerCase();
+
+    switch(name) {
+      case 'wxlr':
+        print("Randy was here");
+        return ("Hi");
+        break;
+      case 'psfa':
+        return ("Hi");
+        break;
+      case 'sdfc':
+        return ("Hi");
+        break;
+      case 'byeng':
+        return ("Hi");
+        break;
+      case 'byac':
+        return ("Hi");
+        break;
+      case 'coor':
+        return ("Hi");
+        break;
+      case 'cpcom':
+        return ("Hi");
+        break;
+      case 'haydn':
+        return ("Hi");
+        break;
+      case 'neeb':
+        return ("Hi");
+        break;
+      case 'noble':
+        return ("Hi");
+        break;
+      case 'mu':
+        return ("Hi");
+        break;
+      case 'cwhal':
+        return ("Hi");
+        break;
+      default:
+        return ("bye");
+        break;
+    }
+  }
 }
