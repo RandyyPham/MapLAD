@@ -28,7 +28,7 @@ void openPage(BuildContext context) {
     builder: (BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Next page'),
+          title: const Text('NotepadLAD'),
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.navigate_next),
@@ -37,13 +37,16 @@ void openPage(BuildContext context) {
                 openPage(context);
               },
             ),
-          ]
+          ],
+          backgroundColor: Colors.pink,
         ),
-        body: const Center(
-          child: Text(
+        body: Column(
+          children: <Widget>[
+            TextField(),
+          ],/*Text(
             'This is the next page',
             style: TextStyle(fontSize: 24),
-          ),
+          ),*/
         ),
       );
     },
@@ -59,7 +62,7 @@ class MyStatelessWidget extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: const Text('AppBar Demo'),
+        title: const Text('NotepadLAD'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add_alert),
@@ -76,12 +79,16 @@ class MyStatelessWidget extends StatelessWidget {
             },
           ),
         ],
+        backgroundColor: Colors.pink,
       ),
-      body: const Center(
-        child: Text(
-          'This is the home page',
+      body: Column(
+        children: <Widget>[
+          TextField(),
+        ],
+        /*Text(
+          'notes here',
           style: TextStyle(fontSize: 24),
-        ),
+        ),*/
       ),
     );
   }
