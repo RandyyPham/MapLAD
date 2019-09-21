@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
         print("Randy was here");
         return ("Hi");
         break;
-      case 'psfa':
+      case 'psf':
         return ("Hi");
         break;
       case 'sdfc':
