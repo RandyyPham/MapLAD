@@ -39,8 +39,8 @@ class _MyAppState extends State<MyApp> {
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
-          target: const LatLng(33.3, -112),
-          zoom: 10.5,
+          target: const LatLng(33.4255, -111.94),
+          zoom: 14,
         ),
         markers: _markers.values.toSet(),
       ),
