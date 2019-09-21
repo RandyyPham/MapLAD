@@ -51,6 +51,18 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:
     - assets/data/crossword.json
+    - assets/data/byac.json
+    - assets/data/byeng.json
+    - assets/data/coor.json
+    - assets/data/cpcom.json
+    - assets/data/cwhal.json
+    - assets/data/haydn.json
+    - assets/data/mu.json
+    - assets/data/neeb.json
+    - assets/data/noble.json
+    - assets/data/psf.json
+    - assets/data/sdfc.json
+    - assets/data/wxlr.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

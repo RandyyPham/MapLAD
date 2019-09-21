@@ -1,0 +1,25 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "L. S. Neeb Hall, 920 S Forest Mall, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4203413,
+               "lng" : -111.9368889
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.42174367989271,
+                  "lng" : -111.9351606201073
+               },
+               "southwest" : {
+                  "lat" : 33.41904402010727,
+                  "lng" : -111.9378602798927
+               }
+            }
+         },
+         "name" : "L. S. Neeb Hall"
+      }
+   ],
+   "status" : "OK"
+}

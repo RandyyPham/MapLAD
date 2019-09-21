@@ -1,0 +1,35 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "Brickyard Engineering, 699 S Mill Ave, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4235981,
+               "lng" : -111.9395366
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.42474592989273,
+                  "lng" : -111.9379894701073
+               },
+               "southwest" : {
+                  "lat" : 33.42204627010728,
+                  "lng" : -111.9406891298927
+               }
+            }
+         },
+         "name" : "Brickyard Engineering",
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/115982370852399624642/photos\"\u003eRohith Eppepalli\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAoGib2kabfhv0OeoXd04HO97AQEK9bOimbeGgc3uVYJ2VPFvUUUpuqlg0_SksrXTirKngAV36V0tFtPVBf20Fm8DM9ZtLLpGcF1I4wkqYcNbh2_lTukQSWLiEeSVH17u3EhBHYLfYK5SCrs-RNw24GBc3GhRjAWp0UzM-tJCgORQBqKIgSrGS7g",
+               "width" : 4032
+            }
+         ]
+      }
+   ],
+   "status" : "OK"
+}

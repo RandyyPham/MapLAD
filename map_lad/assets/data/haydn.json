@@ -1,0 +1,39 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "300 Orange Mall, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4190755,
+               "lng" : -111.9346142
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.42006042989271,
+                  "lng" : -111.93123985
+               },
+               "southwest" : {
+                  "lat" : 33.41736077010727,
+                  "lng" : -111.93664285
+               }
+            }
+         },
+         "name" : "Hayden Library",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 3456,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/106984047784085069944/photos\"\u003eParv Sethi\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAA7vBlZbQ3hnne8NNwx7FO23GHGveyZa64fY7kinJfBagipdnNUaSaGhXMaRf3a5HFOvuCT2USJFz6s2ss-eH7_ddmeL7KR4EUajiAJ27ic8pXVvBF0kGf3EAf6QTQUE29EhB6qpC6aOeHqTB-kfO23oa6GhTEx2fgny-42WMPwSL1ICQtWi4jdg",
+               "width" : 4608
+            }
+         ],
+         "rating" : 4.8
+      }
+   ],
+   "status" : "OK"
+}

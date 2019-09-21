@@ -1,0 +1,39 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "601 E Tyler Mall, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4199172,
+               "lng" : -111.9306635
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.42136154999999,
+                  "lng" : -111.92764725
+               },
+               "southwest" : {
+                  "lat" : 33.41735934999999,
+                  "lng" : -111.93277905
+               }
+            }
+         },
+         "name" : "Noble Library",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 1440,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/112800926546312930069/photos\"\u003eTariq M Nasim\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAA2fwoATOjrCqjecsasMImCFSOS9lxSZLmT-fOrRDMk7SqSg7BjdeuB50fHUOn3qRDZ5SJTDbHiLm68lVZpzWR2JxWRKJSBl7KiGsGD46sh4Rr4N6OVw4ogPxu8Fal6HUZEhCwIDJCkfRPVgsH9-KC9iEaGhT4AhB1U7S_bgoBL1dbcUvsN_jhXw",
+               "width" : 2560
+            }
+         ],
+         "rating" : 4.8
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,35 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "Artisan Court at the Brickyard, 30 E 7th St, Tempe, AZ 85287, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4234996,
+               "lng" : -111.9390249
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.42469672989272,
+                  "lng" : -111.9376748701073
+               },
+               "southwest" : {
+                  "lat" : 33.42199707010727,
+                  "lng" : -111.9403745298927
+               }
+            }
+         },
+         "name" : "Artisan Court at the Brickyard",
+         "photos" : [
+            {
+               "height" : 4000,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/102485545935682184423/photos\"\u003eChris Nicolini\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAACp4NcTIK-uUwXYyUUq3hgLpc2rsYlB2P9_W17vKEh4rUs6jfCKXOj8CAbB31pnC7S88AaEtqcynNnbBSnn49PTbin7Me8M3Sk8ZFDLzzcugMiEA7nzOnzENkzX-8wFbcEhCuMiBXAKnRoDzx2MpH2w7SGhQ0SyeydS-uKblNqxNACxDi4u2bJw",
+               "width" : 2992
+            }
+         ]
+      }
+   ],
+   "status" : "OK"
+}

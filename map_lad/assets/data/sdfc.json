@@ -1,0 +1,26 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "1110-1150 S McAllister Ave, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4165509,
+               "lng" : -111.9304922
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.41796642989272,
+                  "lng" : -111.9289537701073
+               },
+               "southwest" : {
+                  "lat" : 33.41526677010727,
+                  "lng" : -111.9316534298927
+               }
+            }
+         },
+         "name" : "SDFC Intramural Fields",
+         "rating" : 4.5
+      }
+   ],
+   "status" : "OK"
+}

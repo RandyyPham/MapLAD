@@ -1,0 +1,36 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4242399,
+               "lng" : -111.9280527
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.4358356,
+                  "lng" : -111.90603645
+               },
+               "southwest" : {
+                  "lat" : 33.4078036,
+                  "lng" : -111.95252185
+               }
+            }
+         },
+         "name" : "Arizona State University, Tempe Campus",
+         "photos" : [
+            {
+               "height" : 2969,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/111026146040427038871/photos\"\u003eYahya Alyahya\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAu7ParV7U2DsZR3ypNLmloDfD04praIHIkfT42US2UNqhzA9Dv0Pn1lanKrDF-e_Mbl1X-GZ6aBW9Kp5tLWmA70ryZOQCS3Kmg51EXGuNhPqcJolDswHbqsfVuzLT7D8bEhCpBeexeN9U0R_niY0NDSAmGhRcYa-7oX3roWNf-JNmE91_ee-mmQ",
+               "width" : 3958
+            }
+         ],
+         "rating" : 4.1
+      }
+   ],
+   "status" : "OK"
+}

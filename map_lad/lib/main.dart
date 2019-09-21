@@ -16,8 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var destinations = <Destination>{};
-
+  Destination destination = parseJsonForDestination(loadDestinationAsset());
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
     final googleOffices = await locations.getGoogleOffices();
@@ -32,8 +31,8 @@ class _MyAppState extends State<MyApp> {
             snippet: office.address,
           ),
         );
+        print(findDestination().name)
         _markers[office.name] = marker;
-        destinations.add(findDestination());
       }
     });
   }

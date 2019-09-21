@@ -1,0 +1,39 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "301 E Orange St, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4177504,
+               "lng" : -111.9343818
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.41910022989272,
+                  "lng" : -111.9330319701073
+               },
+               "southwest" : {
+                  "lat" : 33.41640057010727,
+                  "lng" : -111.9357316298927
+               }
+            }
+         },
+         "name" : "Memorial Union",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/116246497102668941632/photos\"\u003eAnwer Salameh\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAACor_U2D86J8EZBqhdgMbhuOhy6erYlJAsPoofDKT7pw2Gkd-vcnaYEeCRwWl7HiTMyKTKpvGzQ2VHUakaGH3w6uaty-7hHqyan_rYzbZdPw0LzvAnxMfUVuBfCbLbs7gEhDEfjQquCypH6K0NGJSADrUGhREhMHd7Vd59erJw9AIIybTPFlvFw",
+               "width" : 4032
+            }
+         ],
+         "rating" : 4.3
+      }
+   ],
+   "status" : "OK"
+}

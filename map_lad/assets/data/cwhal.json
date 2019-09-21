@@ -1,0 +1,36 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "850 E Apache Blvd, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4152621,
+               "lng" : -111.9269578
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.41638422989272,
+                  "lng" : -111.9256056701073
+               },
+               "southwest" : {
+                  "lat" : 33.41368457010728,
+                  "lng" : -111.9283053298927
+               }
+            }
+         },
+         "name" : "Cottonwood Hall",
+         "photos" : [
+            {
+               "height" : 4032,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/112028665866538957320/photos\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAoPtB-fZozedAGLVSUqkBGOepAeJ6Jffq05iq6d7IaUIzAIu2sTsF1W-lik03cEb7hlWx64NHemmJcQsula3DUPii2_wxjIAgCzn-7KxaeB_FZtZ0BX1ecOmgqAXJ8RnREhAVlH2R5UicBaW8xcIkwC5JGhQUBTpHeZisvADDnE3jUJ2J8vSz9g",
+               "width" : 3024
+            }
+         ],
+         "rating" : 5
+      }
+   ],
+   "status" : "OK"
+}

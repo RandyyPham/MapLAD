@@ -1,0 +1,25 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "F Wing, 550 E Tyler Mall, Tempe, AZ 85287, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4209987,
+               "lng" : -111.9313753
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.42250787989272,
+                  "lng" : -111.9298380701073
+               },
+               "southwest" : {
+                  "lat" : 33.41980822010728,
+                  "lng" : -111.9325377298927
+               }
+            }
+         },
+         "name" : "F Wing"
+      }
+   ],
+   "status" : "OK"
+}

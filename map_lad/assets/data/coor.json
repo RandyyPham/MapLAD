@@ -1,0 +1,70 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "976 S Forest Mall, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4194639,
+               "lng" : -111.9379023
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.42062617989272,
+                  "lng" : -111.93596275
+               },
+               "southwest" : {
+                  "lat" : 33.41792652010728,
+                  "lng" : -111.93881175
+               }
+            }
+         },
+         "name" : "Lattie F. Coor Hall",
+         "opening_hours" : {
+            "open_now" : false
+         },
+         "photos" : [
+            {
+               "height" : 2992,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/116246497102668941632/photos\"\u003eAnwer Salameh\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAGdJ1sHJT8qVDnozmEYiQZ3LNtetdHL49BFbaL3EQ0kAe6qWez1o4dnG6vWLbpPgRtZHlXVJ2b-nYcdweGTPVVSemXMNgG54AMiSH0iD9mQhg1XuKF7Wh8oR56JAWb0orEhDLAXn4ZbU4z_o_y-PAfQ38GhQd2hlXo_B31RI6qh6KGqsfYC4T5Q",
+               "width" : 4000
+            }
+         ],
+         "rating" : 3.7
+      },
+      {
+         "formatted_address" : "Lattie F. Coor Hall, 975 S Myrtle Ave, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4193842,
+               "lng" : -111.9373081
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.42087797989272,
+                  "lng" : -111.9361079201073
+               },
+               "southwest" : {
+                  "lat" : 33.41817832010728,
+                  "lng" : -111.9388075798927
+               }
+            }
+         },
+         "name" : "Arizona State University Coor Building",
+         "photos" : [
+            {
+               "height" : 4032,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107568461588445569984/photos\"\u003eJustin Clark\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAT1DU9junf7MLzDgFJ6bIZripXixAuqPx-LGVllLItw74lHhq1BqPtT2mWOjAm_sO4FhpzXoQGIMzzeyCNFbLryxCOo4_U9iHbv6dSonY-NMk45fNGMrhle3TpOSstMjkEhAtC3UoIKaZ-NphSWoS6XjeGhShZlWCOPUSytH6Q2kd1pIXEbDwVg",
+               "width" : 3024
+            }
+         ],
+         "rating" : 5
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,36 @@
+{
+   "candidates" : [
+      {
+         "formatted_address" : "A Wing, 900 S Palm Walk, Tempe, AZ 85281, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4205418,
+               "lng" : -111.9324885
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.42204917989272,
+                  "lng" : -111.9313303701073
+               },
+               "southwest" : {
+                  "lat" : 33.41934952010727,
+                  "lng" : -111.9340300298927
+               }
+            }
+         },
+         "name" : "WXLR Building - Arizona State University",
+         "photos" : [
+            {
+               "height" : 3492,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/108605308096634037620/photos\"\u003eChris Callaghan\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAARiUoexqLqXSslGrN82uzD9ckFGzVgkdtBMsydPZ_BTqs-TiEWtcvQVaDfIxF3YaNqGraAZdFCkOF2MjZpQEiLi1x8aYQVF5nsnUxxzjhZTf3GpQBqUfEyoYiRATaHzI6EhCKWMSsp-RJszw8c033aTeeGhSJYZbjgJDmPdGNs6jCruBlMp4YSA",
+               "width" : 4656
+            }
+         ],
+         "rating" : 5
+      }
+   ],
+   "status" : "OK"
+}

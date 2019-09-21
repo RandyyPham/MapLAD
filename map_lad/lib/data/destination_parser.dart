@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 //RELEVANT TUTORIAL http://cogitas.net/parse-json-dart-flutter/
 
 //Creation of a future method that returns a string from the json data
-Future<String> _loadDestinationAsset() async {
+Future<String> loadDestinationAsset() async {
   //We might be able to put the google string in place of the file path.
   //robot is cancer
   print("AAA");
@@ -55,13 +55,14 @@ class Destination {
   final String name;
   final String address;
 
+
   //Constructor setting instance variables to input values
 
   Destination(this.name,this.address,this.lat,this.lng);
 }
 
  //Outputs a
-  Destination _parseJsonForDestination(String jsonString) {
+  Destination parseJsonForDestination(String jsonString) {
   Map decoded = jsonDecode(jsonString);
 
   //a word is an element in an across or an instance of an across?
@@ -72,8 +73,8 @@ class Destination {
 
   //Loads the destination and allows it to be used.
   Future loadDestination() async {
-  String jsonDestination = await _loadDestinationAsset();
-  Destination destination = _parseJsonForDestination(jsonDestination);
+  String jsonDestination = await loadDestinationAsset();
+  Destination destination = parseJsonForDestination(jsonDestination);
 
     //Test printlines to verify destination is found
     print("TEST CASES HERE");
@@ -85,7 +86,8 @@ class Destination {
   String getDestination(Map decodedJson){
 
   }
-  Destination findDestination(/*String jsonPath*/) async{
-    String jsonDestination = await _loadDestinationAsset();
-    return _parseJsonForDestination(jsonDestination);
+
+  Future<Destination> findDestination(/*String jsonPath*/) async{
+    String jsonDestination = await loadDestinationAsset();
+    return await parseJsonForDestination(jsonDestination);
   }
