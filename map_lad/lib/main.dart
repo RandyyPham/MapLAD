@@ -23,37 +23,13 @@ class MyApp extends StatelessWidget {
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
 
-int randy = 0;
-
 void openPage(BuildContext context) {
-
-
 
   Navigator.push(context, MaterialPageRoute(
     builder: (BuildContext context) {
       return Scaffold(
         appBar: AppBar(
           title: const Text('Next page'),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.navigate_next),
-              tooltip: 'Next page',
-              onPressed: () {
-                randy++;
-                if (randy < 3) {
-                  Navigator.push(context2, MaterialPageRoute(
-
-                  ))
-                  print(randy);
-                  print("page is opening still");
-                } else {
-                  // do nothing
-                  print(randy);
-                  print("Page is not opening");
-                }
-              },
-            ),
-          ]
         ),
         body: const Center(
           child: Text(
@@ -88,7 +64,6 @@ class MyStatelessWidget extends StatelessWidget {
             icon: const Icon(Icons.navigate_next),
             tooltip: 'Next page',
             onPressed: () {
-              randy++;
               openPage(context);
             },
           ),
