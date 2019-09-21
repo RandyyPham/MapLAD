@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
+import 'data/crossword_parser.dart';
 
-void main() => runApp(MyApp());
+
+void main() {
+  runApp(MyApp());
+  //Calls the method to print the json file.
+  loadCrossword();
+}
 
 class MyApp extends StatefulWidget {
   @override
