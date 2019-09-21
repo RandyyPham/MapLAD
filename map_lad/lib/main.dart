@@ -17,26 +17,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  Future<String> a = loadDestinationAsset();
-  Destination destination = parseJsonForDestination(a);
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
+    String a = await loadDestinationAsset();
+    Destination destination = parseJsonForDestination(a);
+    print(destination.name +" IT WORKS");
     final googleOffices = await locations.getGoogleOffices();
     setState(() {
-      print(destination.name + "This is the best");
       _markers.clear();
-      for (final office in googleOffices.offices) {
+      //for (final office in googleOffices.offices) {
         final marker = Marker(
-          markerId: MarkerId(office.name),
-          position: LatLng(office.lat, office.lng),
+          markerId: MarkerId(destination.name),
+          position: LatLng(destination.lat, destination.lng),
           infoWindow: InfoWindow(
-            title: office.name,
-            snippet: office.address,
+            title: destination.name,
+            snippet: destination.address,
           ),
         );
-        _markers[office.name] = marker;
-      }
+        _markers[destination.name] = marker;
+      //}
     });
   }
 
