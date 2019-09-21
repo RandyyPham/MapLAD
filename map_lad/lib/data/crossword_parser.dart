@@ -2,13 +2,18 @@ import 'dart:async' show Future;
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 //RELEVANT TUTORIAL http://cogitas.net/parse-json-dart-flutter/
 
 //Creation of a future method that returns a string from the json data
-Future<String> _loadCrosswordAsset() async {
+Future<String> _loadDestinationAsset() async {
   //We might be able to put the google string in place of the file path.
   //robot is cancer
-  return await rootBundle.loadString('assets/data/crossword.json');
+  print("AAA");
+  final response = await http.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=WXLR%20Building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg');
+  //return await rootBundle.loadString('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=WXLR%20Building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg');
+
+  return response.body;
 }
 
 //Entry point method to access the json file and the parser for the string.
@@ -44,48 +49,35 @@ Future loadCrossword() async {
 }*/
 
 //Object representing our dataset object
-class Crossword {
-  final int id;
+class Destination {
+  final double lat;
+  final double lng;
   final String name;
-  final Across across;
+  final String address;
+
   //Constructor setting instance variables to input values
-  Crossword(this.id,this.name,this.across);
+
+  Destination(this.name,this.address,this.lat,this.lng);
 }
- class Across {
-  final List<Word> words;
 
-  const Across(this.words);
- }
- class Word {
-  final int number;
-  final String word;
-
-  const Word(this.number,this.word);
- }
-
- //Outputting a Crossword from the parse method
-  Crossword _parseJsonForCrossword(String jsonString) {
+ //Outputs a
+  Destination _parseJsonForDestination(String jsonString) {
   Map decoded = jsonDecode(jsonString);
 
   //a word is an element in an across or an instance of an across?
-  List<Word> words = new List<Word>();
-  for (var word in decoded['across']) {
-    words.add(new Word(word['number'], word['word']));
+
+  return new Destination(decoded['candidates'][0]['name'],decoded['candidates'][0]['formatted_address'],decoded['candidates'][0]['geometry']['location']['lat'],decoded['candidates'][0]['geometry']['location']['lng']);
   }
 
-  return new Crossword(decoded['id'], decoded['name'], new Across(words));
-  }
+  //Loads the destination and allows it to be used.
+  Future loadDestination() async {
+  String jsonDestination = await _loadDestinationAsset();
+  Destination destination = _parseJsonForDestination(jsonDestination);
 
-  //New version of load crossword that uses the object method of crossword building.
-  Future loadCrossword() async {
-  String jsonCrossword = await _loadCrosswordAsset();
-  Crossword crossword = _parseJsonForCrossword(jsonCrossword);
-
-  //We check if it's working
-    print(crossword.name);
-
-    //Crossword is loaded from JSON, do what you want with it now B)
+    //Test printlines to verify destination is found
     print("TEST CASES HERE");
-    //outputs the number of the second instance of across.
-    print(crossword.across.words[1].number);
+    print(destination.name);
+  }
+  String getDestination(Map decodedJson){
+
   }

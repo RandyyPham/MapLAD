@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
-import 'data/crossword_parser.dart';
+import 'data/location_json_parser.dart';
 
 
 void main() {
   runApp(MyApp());
   //Calls the method to print the json file.
-  loadCrossword();
+  loadDestination();
 }
 
 class MyApp extends StatefulWidget {
@@ -24,6 +24,14 @@ class _MyAppState extends State<MyApp> {
       for (final office in googleOffices.offices) {
         final marker = Marker(
           markerId: MarkerId(office.name),
+          position: LatLng(office.lat, office.lng),
+          infoWindow: InfoWindow(
+            title: office.name,
+            snippet: office.address,
+          ),
+        );
+        final marker = Marker(
+          markerId: MarkerId(destination.name),
           position: LatLng(office.lat, office.lng),
           infoWindow: InfoWindow(
             title: office.name,
