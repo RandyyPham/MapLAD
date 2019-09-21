@@ -11,6 +11,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final Map<String, Marker> _markers = {};
+
   Future<void> _onMapCreated(GoogleMapController controller) async {
     final googleOffices = await locations.getGoogleOffices();
     setState(() {
@@ -30,20 +31,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(
-        title: const Text('MapLAD'),
-        backgroundColor: Colors.pink[700],
-      ),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: const LatLng(33.4255, -111.94),
-          zoom: 14,
+  Widget build(BuildContext context) =>
+      MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('MapLAD'),
+            backgroundColor: Colors.pink[700],
+          ),
+          body: Container(
+            child: TextField(),
+          ),
         ),
-        markers: _markers.values.toSet(),
-      ),
-    ),
-  );
+      );
 }
