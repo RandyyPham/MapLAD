@@ -48,7 +48,20 @@ class MyStatelessWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    PageView(
+      children: <Widget>[
+        Container(
+          color: Colors.pink,
+        ),
+        Container(
+          color: Colors.green,
+        ),
+        Container(
+          color: Colors.blue,
+        ),
+      ],
+    );
+    /*return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
         title: const Text('AppBar Demo'),
@@ -75,6 +88,6 @@ class MyStatelessWidget extends StatelessWidget {
           style: TextStyle(fontSize: 24),
         ),
       ),
-    );
+    );*/
   }
 }
