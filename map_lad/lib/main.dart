@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
 import 'data/destination_parser.dart';
+import 'dart:async' show Future;
 
 
-void main() {
+Future<void> main() async {
   runApp(MyApp());
   //Calls the method to print the json file.
   loadDestination();
@@ -16,11 +17,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Destination destination = parseJsonForDestination(loadDestinationAsset());
+
+  Future<String> a = loadDestinationAsset();
+  Destination destination = parseJsonForDestination(a);
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
     final googleOffices = await locations.getGoogleOffices();
     setState(() {
+      print(destination.name + "This is the best");
       _markers.clear();
       for (final office in googleOffices.offices) {
         final marker = Marker(
@@ -31,7 +35,6 @@ class _MyAppState extends State<MyApp> {
             snippet: office.address,
           ),
         );
-        print(findDestination().name)
         _markers[office.name] = marker;
       }
     });
