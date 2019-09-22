@@ -291,7 +291,7 @@ class MapViewerState extends State<MapViewer> {
                 destination: LatLng(
                     DestinationHandler.destinations[i + 1].lat, DestinationHandler.destinations[i + 1].lng),
                 mode: RouteMode.walking),
-            color: Colors.pink[],
+            color: Colors.pink,
           );
           await routes.add(polyline);
           //_polyline["From "+destinations[i].name+" to "+destinations[i+1].name] = polyline;
