@@ -4,6 +4,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/gestures.dart';
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'src/locations.dart' as locations;
+import 'data/destination_parser.dart';
+import 'dart:async' show Future;
+import 'package:google_map_polyline/google_map_polyline.dart';
+
 class Lecture{
   String location;
   bool m,t,w,th,f;
@@ -13,7 +21,57 @@ class Lecture{
     return f;
   }
 }
-void main() {
+String interpret(String name) {
+  //name = textController.text;
+
+  name = name.toLowerCase();
+
+  switch (name) {
+    case 'wxlr':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=wxlr%20hall%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'psf':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=psf%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'sdfc':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=sdfc%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'byeng':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=byeng%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'byac':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=byac%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'coor':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=coor%20hall%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'cpcom':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=cpcom%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'haydn':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Hayden%20library%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'neeb':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=neeb%20hall%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'noble':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=noble%20library%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'mu':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=memorial%20union%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    case 'cwhal':
+      return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=cottonwood%20hall%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+      break;
+    default:
+      return ("bye");
+      break;
+  }
+}
+
+
+
+Future<void> main() async {
   runApp(MaterialApp(
     title: 'MapLAD',
     home: MapViewer(),
@@ -26,129 +84,211 @@ class MapViewer extends StatefulWidget {
 }
 
 class _MapViewerState extends State<MapViewer> {
-  final Map<String, Marker> _markers = {};
 
-  Future<void> onMapCreated(GoogleMapController controller) async {
-    final googleOffices = await locations.getGoogleOffices();
-    setState(() {
-      _markers.clear();
-      for (final office in googleOffices.offices) {
-        final marker = Marker(
-          markerId: MarkerId(office.name),
-          position: LatLng(office.lat, office.lng),
-          infoWindow: InfoWindow(
-            title: office.name,
-            snippet: office.address,
-          ),
-        );
-        _markers[office.name] = marker;
-      }
-    });
+
+
+
+
+  List<Destination> destinations = [];
+
+  //Returns the closer destination to the user among a and b, using the zero indez for user location.
+  Destination whichIsCloser(Destination a, Destination b){
+    var distanceA = sqrt(((a.lat - destinations[0].lat) * (a.lat - destinations[0].lat)) + ((a.lng - destinations[0].lng) * (a.lng - destinations[0].lng)));
+    var distanceB = sqrt(((b.lat - destinations[0].lat) * (b.lat - destinations[0].lat)) + ((b.lng - destinations[0].lng) * (b.lng - destinations[0].lng)));
+    if(distanceA < distanceB){
+      return a;
+    }else{
+      return b;
+    }
   }
 
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: const Text('MapLAD'),
-              backgroundColor: Colors.pink[700],
-              actions: <Widget>[
-                IconButton(
-                  //TODO: CLASS SCHEDULE MAKER
+  //Method to add destinations to trip
+  Future<void> addDestination(String jsonPath) async {
+    String path = interpret(jsonPath);
+    String jsonParameters = await loadDestinationAsset(path);
+    Destination newDestination = await parseJsonForDestination(jsonParameters);
+    destinations.add(newDestination);
+  }
 
-                    icon: Icon(Icons.code),
-                    onPressed: () {
-                      print("EA SPorts, it's in the game.");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DemoArea()),
-                      );
-                      //GO TO SCENE 2
-                    }),
-                IconButton(
-                    //TODO: LOCATION SETTER FOR DEMO
+  //Sets the first place you want to be (index 1) to the new destination.
+  //Moving everything else back.
+  Future<void> setDestination(String jsonPath) async {
+    String path = interpret(jsonPath);
+    String jsonParameters = await loadDestinationAsset(path);
+    Destination newDestination = await parseJsonForDestination(jsonParameters);
+    destinations.insert(1, newDestination);
+  }
 
-                    icon: Icon(Icons.school),
-                    onPressed: () {
-                      print("EA SPorts, it's in the game.");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ClassSchedulerArea()),
-                      );
-                      //GO TO SCENE 2
-                    }),
-                IconButton(
-                    //TODO: NEAREST LIBRARY (HAYDEN OR NOBLE)
+  //Deletes the destination in the 1 spot, or the most recently added destination
+  Future<void> undoDestination(String jsonPath) async {
+    String path = interpret(jsonPath);
+    String jsonParameters = await loadDestinationAsset(path);
+    Destination newDestination = await parseJsonForDestination(jsonParameters);
+    destinations.removeAt(1);
 
-                    icon: Icon(Icons.book),
-                    onPressed: () {
-                      print("EA SPorts, it's in the game.");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UserInputArea()),
-                      );
-                      //GO TO SCENE 2
-                    }),
-                IconButton(
-                    //TODO: ADDS MU TO NAVIGATION
-                    icon: Icon(Icons.fastfood),
-                    onPressed: () {
-                      print("EA Errrrr, it's in the game.");
-                      //Set Next step in navigation to nearest food.
-                      //GO TO SCENE 2
-                    }),
-                IconButton(
-                    //TODO: ADDS STARBUCKS TO NAVIGATION
-                    icon: Icon(Icons.star),
-                    onPressed: () {
-                      print("EA Errrrr, it's in the game.");
-                      //Set Next step in navigation to nearest food.
-                      //GO TO SCENE 2
-                    }),
+    //Adds class to the set of destinations if it is active today.
+    Future<void> addClass(Lecture lecture) {
+      if (lecture.classToday()) {
+        addDestination(lecture.location);
+      } else {
 
-                IconButton(
-                    //TODO: REMOVED CURRENT NAVIGATION TARGET
-                    icon: Icon(Icons.undo),
-                    onPressed: () {
-                      print("EA Errrrr, it's in the game.");
-                      //Set Next step in navigation to nearest food.
-                      //GO TO SCENE 2
-                    }),
-              ],
+      }
+    }
+  }
+    //Sets the user to the chosen position
+    // (Our version of moving for the demo)
+    // You have arrived at a location if your new location was your previous goal
+    //This removes the location that was previously the goal from the list.
+    Future<void> setUser(String jsonPath) async {
+      String path = interpret(jsonPath);
+      String jsonParameters = await loadDestinationAsset(path);
+      Destination newDestination = await parseJsonForDestination(
+          jsonParameters);
+      Destination previousDestination = destinations[1];
+      destinations[0] = newDestination;
+      if (previousDestination == destinations[0]) {
+        destinations.removeAt(1);
+      }
+    }
+
+    @override
+    Widget build(BuildContext context) => MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text('MapLAD'),
+            backgroundColor: Colors.pink[700],
+            actions: <Widget>[
+              IconButton(
+                //TODO: CLASS SCHEDULE MAKER
+
+                  icon: Icon(Icons.code),
+                  onPressed: () {
+                    print("EA SPorts, it's in the game.");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DemoArea()),
+                    );
+                    //GO TO SCENE 2
+                  }),
+              IconButton(
+                //TODO: LOCATION SETTER FOR DEMO
+
+                  icon: Icon(Icons.school),
+                  onPressed: () {
+                    print("EA SPorts, it's in the game.");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ClassSchedulerArea()),
+                    );
+                    //GO TO SCENE 2
+                  }),
+              IconButton(
+                //TODO: NEAREST LIBRARY (HAYDEN OR NOBLE)
+
+                  icon: Icon(Icons.book),
+                  onPressed: () {
+                    print("EA SPorts, it's in the game.");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserInputArea()),
+                    );
+                    //GO TO SCENE 2
+                  }),
+              IconButton(
+                //TODO: ADDS MU TO NAVIGATION
+                  icon: Icon(Icons.fastfood),
+                  onPressed: () {
+                    print("EA Errrrr, it's in the game.");
+                    //Set Next step in navigation to nearest food.
+                    //GO TO SCENE 2
+                  }),
+              IconButton(
+                //TODO: ADDS STARBUCKS TO NAVIGATION
+                  icon: Icon(Icons.star),
+                  onPressed: () {
+                    print("EA Errrrr, it's in the game.");
+                    //Set Next step in navigation to nearest food.
+                    //GO TO SCENE 2
+                  }),
+
+              IconButton(
+                //TODO: REMOVED CURRENT NAVIGATION TARGET
+                  icon: Icon(Icons.undo),
+                  onPressed: () {
+                    print("EA Errrrr, it's in the game.");
+                    //Set Next step in navigation to nearest food.
+                    //GO TO SCENE 2
+                  }),
+            ],
+          ),
+          body: GoogleMap(
+            onMapCreated: onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target: const LatLng(33.4255, -111.94),
+              zoom: 14,
             ),
-            body: GoogleMap(
-              onMapCreated: onMapCreated,
-              initialCameraPosition: CameraPosition(
-                target: const LatLng(33.4255, -111.94),
-                zoom: 14,
-              ),
-              markers: _markers.values.toSet(),
-            )
-            /*children: <Widget>[
-              Container(
-                child: GoogleMap(
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition: CameraPosition(
-                    target: const LatLng(33.4255, -111.94),
-                    zoom: 14,
-                  ),
-                  markers: _markers.values.toSet(),
-                ),
-              ),
-              Container(
-                child: Center(child: Text("Page 2?")),
-                color: Colors.green,
-              ),
-              Container(
-                child: Center(child: Text("Page 3 bby")),
-                color: Colors.blue,
-              ),
-            ],*/
+            markers: _markers.values.toSet(),
+            polylines: _polyline.values.toSet(),
+          )
+      ),
+    );
+
+
+
+
+
+
+    final Map<String, Marker> _markers = {};
+  final Map<String, Polyline>_polyline = {};
+  //Import of polyline list maker
+  GoogleMapPolyline googleMapPolyline =
+  new GoogleMapPolyline(apiKey: "AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+
+    Future<void> onMapCreated(GoogleMapController controller) async {
+      List<Polyline> routes = [];
+      for (var i = 0; i < destinations.length; i++) {
+        if (i < destinations.length - 1) {
+          final polyline = Polyline(
+            polylineId: PolylineId("From " + destinations[i].name + " to " +
+                destinations[i + 1].name),
+            visible: true,
+            points: await googleMapPolyline.getCoordinatesWithLocation(
+                origin: LatLng(destinations[i].lat, destinations[i].lng),
+                destination: LatLng(
+                    destinations[i + 1].lat, destinations[i + 1].lng),
+                mode: RouteMode.walking),
+            color: Colors.pink,
+          );
+          routes.add(polyline);
+          //_polyline["From "+destinations[i].name+" to "+destinations[i+1].name] = polyline;
+        }
+      }
+      setState(() {
+        _markers.clear();
+        _polyline.clear();
+        for (var i = 0; i < destinations.length; i++) {
+          final marker = Marker(
+            markerId: MarkerId(destinations[i].name),
+            position: LatLng(destinations[i].lat, destinations[i].lng),
+            infoWindow: InfoWindow(
+              title: destinations[i].name,
+              snippet: destinations[i].address,
             ),
-      );
+          );
+          _markers[destinations[i].name] = marker;
+          if (i < destinations.length - 1) {
+            _polyline["From " + destinations[i].name + " to " +
+                destinations[i + 1].name] = routes[i];
+            // _polyline["From "+destinations[i].name+" to "+destinations[i+1].name] = polyline
+          }
+        }
+      });
+
+  }
+
 }
 
 class UserInputArea extends StatelessWidget {
