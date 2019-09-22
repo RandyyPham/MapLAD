@@ -1,10 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/gestures.dart';
-
-void main(){
+class Lecture{
+  String location;
+  bool m,t,w,th,f;
+  Lecture(this.location,this.m,this.t,this.w,this.th,this.f);
+  bool classToday(){
+    //Treats today as Friday for the sake of demo.
+    return f;
+  }
+}
+void main() {
   runApp(MaterialApp(
     title: 'MapLAD',
     home: MapViewer(),
@@ -15,10 +24,11 @@ class MapViewer extends StatefulWidget {
   @override
   _MapViewerState createState() => _MapViewerState();
 }
+
 class _MapViewerState extends State<MapViewer> {
   final Map<String, Marker> _markers = {};
 
-  Future<void> _onMapCreated(GoogleMapController controller) async {
+  Future<void> onMapCreated(GoogleMapController controller) async {
     final googleOffices = await locations.getGoogleOffices();
     setState(() {
       _markers.clear();
@@ -37,73 +47,86 @@ class _MapViewerState extends State<MapViewer> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
         home: Scaffold(
             appBar: AppBar(
               title: const Text('MapLAD'),
               backgroundColor: Colors.pink[700],
               actions: <Widget>[
-                IconButton( //TODO: NEAREST LIBRARY (HAYDEN OR NOBLE)
+                IconButton(
+                    //TODO: LOCATION SETTER FOR DEMO
+
+                    icon: Icon(Icons.code),
+                    onPressed: () {
+                      print("EA SPorts, it's in the game.");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DemoArea()),
+                      );
+                      //GO TO SCENE 2
+                    }),
+                IconButton(
+                    //TODO: NEAREST LIBRARY (HAYDEN OR NOBLE)
 
                     icon: Icon(Icons.book),
                     onPressed: () {
                       print("EA SPorts, it's in the game.");
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => UserInputArea()),
+                        MaterialPageRoute(
+                            builder: (context) => UserInputArea()),
                       );
                       //GO TO SCENE 2
-                    }
-                ),
-                IconButton( //TODO: ADDS MU TO NAVIGATION
+                    }),
+                IconButton(
+                    //TODO: ADDS MU TO NAVIGATION
                     icon: Icon(Icons.fastfood),
-                    onPressed: () {
-                      print("EA Errrrr, it's in the game.");
-                     //Set Next step in navigation to nearest food.
-                      //GO TO SCENE 2
-                    }
-                ),
-                IconButton( //TODO: REMOVED CURRENT NAVIGATION TARGET
-                    icon: Icon(Icons.undo),
                     onPressed: () {
                       print("EA Errrrr, it's in the game.");
                       //Set Next step in navigation to nearest food.
                       //GO TO SCENE 2
-                    }
-                ),
-                IconButton( //TODO: ADDS STARBUCKS TO NAVIGATION
+                    }),
+                IconButton(
+                    //TODO: ADDS STARBUCKS TO NAVIGATION
                     icon: Icon(Icons.star),
                     onPressed: () {
                       print("EA Errrrr, it's in the game.");
                       //Set Next step in navigation to nearest food.
                       //GO TO SCENE 2
-                    }
-                ),
-                IconButton( //TODO: CLASS SCHEDULE MAKER
+                    }),
+                IconButton(
+                    //TODO: CLASS SCHEDULE MAKER
 
-                  icon: Icon(Icons.school),
-                  onPressed: () {
-                    print("EA SPorts, it's in the game.");
-                    Navigator.push(
+                    icon: Icon(Icons.school),
+                    onPressed: () {
+                      print("EA SPorts, it's in the game.");
+                      Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ClassScheduler()),
-                    );
-                    //GO TO SCENE 2
-                  }
-                ),
+                        MaterialPageRoute(
+                            builder: (context) => ClassScheduler()),
+                      );
+                      //GO TO SCENE 2
+                    }),
+                IconButton(
+                    //TODO: REMOVED CURRENT NAVIGATION TARGET
+                    icon: Icon(Icons.undo),
+                    onPressed: () {
+                      print("EA Errrrr, it's in the game.");
+                      //Set Next step in navigation to nearest food.
+                      //GO TO SCENE 2
+                    }),
               ],
             ),
             body: GoogleMap(
-              onMapCreated: _onMapCreated,
+              onMapCreated: onMapCreated,
               initialCameraPosition: CameraPosition(
                 target: const LatLng(33.4255, -111.94),
                 zoom: 14,
               ),
               markers: _markers.values.toSet(),
-
             )
-          /*children: <Widget>[
+            /*children: <Widget>[
               Container(
                 child: GoogleMap(
                   onMapCreated: _onMapCreated,
@@ -123,48 +146,84 @@ class _MapViewerState extends State<MapViewer> {
                 color: Colors.blue,
               ),
             ],*/
-        ),
+            ),
       );
 }
- class UserInputArea extends StatelessWidget {
-  @override
-   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('You have spare time! Where to?'),
-        backgroundColor: Colors.pink[700],
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                print("Beam me up, Scotty!");
-                Navigator.pop(context);
 
-                //GO BACK TO SCENE 1
-              }
-          ),
-        ],
-      ),
+class UserInputArea extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('You have spare time! Where to?'),
+          backgroundColor: Colors.pink[700],
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  print("Beam me up, Scotty!");
+                  Navigator.pop(context);
+
+                  //GO BACK TO SCENE 1
+                }),
+          ],
+        ),
         body: Column(
-    children: <Widget>[
-    Text('Deliver features faster'),
-    Text('Craft beautiful UIs'),
-    TextFormField(
-      decoration: InputDecoration(
-          labelText: 'Enter your username'
-      ),
-    ),
-    Expanded(
-    child: FittedBox(
-    fit: BoxFit.contain, // otherwise the logo will be tiny
-    child: const FlutterLogo(),
-    ),
-    ),
-    ],
-    )
-    );
- }}
+          children: <Widget>[
+            Text('Deliver features faster'),
+            Text('Craft beautiful UIs'),
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Enter your username'),
+            ),
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.contain, // otherwise the logo will be tiny
+                child: const FlutterLogo(),
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
+class FoodInputArea extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('You want some food?'),
+          backgroundColor: Colors.pink[700],
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  print("Beam me up, Scotty!");
+                  Navigator.pop(context);
+
+                  //GO BACK TO SCENE 1
+                }),
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            Text('Deliver features faster'),
+            Text('Craft beautiful UIs'),
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Enter your username'),
+            ),
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.contain, // otherwise the logo will be tiny
+                child: const FlutterLogo(),
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
 class ClassScheduler extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,8 +238,7 @@ class ClassScheduler extends StatelessWidget {
                   Navigator.pop(context);
 
                   //GO BACK TO SCENE 1
-                }
-            ),
+                }),
           ],
         ),
         body: Column(
@@ -188,9 +246,7 @@ class ClassScheduler extends StatelessWidget {
             Text('Deliver features faster'),
             Text('Craft beautiful UIs'),
             TextFormField(
-              decoration: InputDecoration(
-                  labelText: 'Enter your username'
-              ),
+              decoration: InputDecoration(labelText: 'Enter your class'),
             ),
             Expanded(
               child: FittedBox(
@@ -199,6 +255,179 @@ class ClassScheduler extends StatelessWidget {
               ),
             ),
           ],
-        )
+        ));
+  }
+}
+
+class DemoArea extends StatelessWidget {
+
+  var demoController = TextEditingController();
+  String className;
+  bool M = false;
+  bool T = false;
+  bool W = false;
+  bool Th = false;
+  bool F = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Where are you?'),
+        backgroundColor: Colors.pink[700],
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                print("Beam me up, Scotty!");
+                /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => LoadingScreen()));*/
+              }
+          )
+        ],
+        //Navigator.pop(context);
+
+        //GO BACK TO SCENE 1
+      ),
+      body: Column(
+        children: <Widget>[
+          Text(''),
+          Text('Enjoy Arizona State University :)'),
+          TextField(
+            controller: demoController,
+            decoration: InputDecoration(
+                labelText: 'Enter your location please'),
+
+          ),
+
+          Row(
+            children: <Widget>[
+              FlatButton(
+                color: Colors.pinkAccent,
+                onPressed: () {
+                  M = !M;
+                },
+                child: Text(
+                  "m",
+                ),
+              ),
+              FlatButton(
+                color: Colors.pinkAccent,
+                onPressed: () {
+                  T = !T;
+                },
+                child: Text(
+                  "t",
+                ),
+              ),
+              FlatButton(
+                color: Colors.pinkAccent,
+                onPressed: () {
+                  W = !W;
+                },
+                child: Text(
+                  "w",
+                ),
+              )
+
+
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              FlatButton(
+                color: Colors.pinkAccent,
+                onPressed: () {
+                  Th = !Th;
+                },
+                child: Text(
+                  "th",
+                ),
+              ),
+              FlatButton(
+                color: Colors.pinkAccent,
+                onPressed: () {
+                  F = !F;
+                },
+                child: Text(
+                  "f",
+                ),
+              ),
+            ],
+          ),
+          FloatingActionButton(
+            backgroundColor: Colors.lightGreenAccent,
+            onPressed: () {
+              Lecture lecture = new Lecture(
+                  demoController.text, M, T, W, Th, F);
+              M = false;
+              T = false;
+              W = false;
+              Th = false;
+              F = false;
+              //TODO: ADD DESTINATION ADDER HERE!
+            },
+          ),
+        ],
+      ),
     );
-  }}
+    @override
+    State<StatefulWidget> createState() {
+      // TODO: implement createState
+      return null;
+    }
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return null;
+  }
+}
+
+class LoadingScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text(''),
+          //backgroundColor: Colors.pink[700],
+          /*actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  print("Beam me up, Scotty!");
+                  Navigator.pop(context);
+
+                  //GO BACK TO SCENE 1
+                }),
+          ],*/
+        ),
+        body: Column(
+          children: <Widget>[
+            //Text('Deliver features faster'),
+            //Text('Craft beautiful UIs'),
+            /*TextFormField(
+              decoration: InputDecoration(labelText: 'Enter your username'),
+            ),*/
+            Expanded(
+              child: RichText(
+                text: TextSpan(
+                  text: 'Loading...',
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan> [
+                    TextSpan(text: '', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0)),
+                  ],
+                ),
+              ),
+              /*child: FittedBox(
+                fit: BoxFit.contain, // otherwise the logo will be tiny
+                child: const FlutterLogo(),
+              ),*/
+            ),
+          ],
+        ));
+  }
+}
