@@ -54,7 +54,7 @@ class _MapViewerState extends State<MapViewer> {
               backgroundColor: Colors.pink[700],
               actions: <Widget>[
                 IconButton(
-                    //TODO: LOCATION SETTER FOR DEMO
+                  //TODO: CLASS SCHEDULE MAKER
 
                     icon: Icon(Icons.code),
                     onPressed: () {
@@ -63,6 +63,19 @@ class _MapViewerState extends State<MapViewer> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => DemoArea()),
+                      );
+                      //GO TO SCENE 2
+                    }),
+                IconButton(
+                    //TODO: LOCATION SETTER FOR DEMO
+
+                    icon: Icon(Icons.school),
+                    onPressed: () {
+                      print("EA SPorts, it's in the game.");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ClassSchedulerArea()),
                       );
                       //GO TO SCENE 2
                     }),
@@ -95,19 +108,7 @@ class _MapViewerState extends State<MapViewer> {
                       //Set Next step in navigation to nearest food.
                       //GO TO SCENE 2
                     }),
-                IconButton(
-                    //TODO: CLASS SCHEDULE MAKER
 
-                    icon: Icon(Icons.school),
-                    onPressed: () {
-                      print("EA SPorts, it's in the game.");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ClassScheduler()),
-                      );
-                      //GO TO SCENE 2
-                    }),
                 IconButton(
                     //TODO: REMOVED CURRENT NAVIGATION TARGET
                     icon: Icon(Icons.undo),
@@ -222,7 +223,9 @@ class FoodInputArea extends StatelessWidget {
   }
 }
 
-class ClassScheduler extends StatelessWidget {
+class DemoArea extends StatelessWidget {
+
+  var demoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -245,23 +248,33 @@ class ClassScheduler extends StatelessWidget {
           children: <Widget>[
             Text('Deliver features faster'),
             Text('Craft beautiful UIs'),
-            TextFormField(
+            TextField(
               decoration: InputDecoration(labelText: 'Enter your class'),
+              controller: demoController,
             ),
-            Expanded(
+            FloatingActionButton(
+              child: Icon(Icons.subdirectory_arrow_right),
+              backgroundColor: Colors.pink,
+              splashColor: Colors.pinkAccent,
+              onPressed: () {
+                print(demoController.text);
+                // do some function with the user input
+              }
+            ),
+            /*Expanded(
               child: FittedBox(
                 fit: BoxFit.contain, // otherwise the logo will be tiny
                 child: const FlutterLogo(),
               ),
-            ),
+            ),*/
           ],
         ));
   }
 }
 
-class DemoArea extends StatelessWidget {
+class ClassSchedulerArea extends StatelessWidget {
 
-  var demoController = TextEditingController();
+  var lectureController = TextEditingController();
   String className;
   bool M = false;
   bool T = false;
@@ -296,7 +309,7 @@ class DemoArea extends StatelessWidget {
           Text(''),
           Text('Enjoy Arizona State University :)'),
           TextField(
-            controller: demoController,
+            controller: lectureController,
             decoration: InputDecoration(
                 labelText: 'Enter your location please'),
 
@@ -361,7 +374,7 @@ class DemoArea extends StatelessWidget {
             backgroundColor: Colors.lightGreenAccent,
             onPressed: () {
               Lecture lecture = new Lecture(
-                  demoController.text, M, T, W, Th, F);
+                  lectureController.text, M, T, W, Th, F);
               M = false;
               T = false;
               W = false;
