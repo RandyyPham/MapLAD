@@ -47,22 +47,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
-  assets:
-    - assets/data/crossword.json
-    - assets/data/byac.json
-    - assets/data/byeng.json
-    - assets/data/coor.json
-    - assets/data/cpcom.json
-    - assets/data/cwhal.json
-    - assets/data/haydn.json
-    - assets/data/mu.json
-    - assets/data/neeb.json
-    - assets/data/noble.json
-    - assets/data/psf.json
-    - assets/data/sdfc.json
-    - assets/data/wxlr.json
-
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

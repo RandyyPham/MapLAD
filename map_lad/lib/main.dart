@@ -69,7 +69,95 @@ String interpret(String name) {
   }
 }
 
+class DestinationHandler {
+  static List<Destination> destinations = [];
 
+
+
+  //Returns the closer destination to the user among a and b, using the zero indez for user location.
+  //Adds closest to destination list
+  static Future<void> whichIsCloser(String aIn, String bIn) async{
+    String path1 = interpret(aIn);
+    String jsonParameters = await loadDestinationAsset(path1);
+    Destination a = await parseJsonForDestination(jsonParameters);
+
+    String path = interpret(bIn);
+    String jsonP = await loadDestinationAsset(path);
+    Destination b = await parseJsonForDestination(jsonP);
+    var distanceA = sqrt(((a.lat - destinations[0].lat) * (a.lat - destinations[0].lat)) + ((a.lng - destinations[0].lng) * (a.lng - destinations[0].lng)));
+    var distanceB = sqrt(((b.lat - destinations[0].lat) * (b.lat - destinations[0].lat)) + ((b.lng - destinations[0].lng) * (b.lng - destinations[0].lng)));
+    if(distanceA < distanceB){
+      setDestination(aIn);
+    }else{
+      setDestination(bIn);
+    }
+  }
+
+  //Method to add destinations to trip
+  static Future<void> addDestination(String jsonPath) async {
+    String path = interpret(jsonPath);
+    String jsonParameters = await loadDestinationAsset(path);
+    Destination newDestination = await parseJsonForDestination(jsonParameters);
+    await destinations.add(newDestination);
+    print("HHHHHHH");
+    print(destinations[destinations.length-1].name);
+    print(destinations[destinations.length-1].address);
+    print(destinations[destinations.length-1].lat);
+    print(destinations[destinations.length-1].lng);
+  }
+
+  //Sets the first place you want to be (index 1) to the new destination.
+  //Moving everything else back.
+  static Future<void> setDestination(String jsonPath) async {
+    String path = interpret(jsonPath);
+    String jsonParameters = await loadDestinationAsset(path);
+    Destination newDestination = await parseJsonForDestination(jsonParameters);
+    destinations.insert(1, newDestination);
+    print("GGGGGGGGGG");
+    print(destinations[1].name);
+    print(destinations[1].address);
+    print(destinations[1].lat);
+    print(destinations[1].lng);
+  }
+
+  //Deletes the destination in the 1 spot, or the most recently added destination
+  static Future<void> undoDestination() async {
+    await destinations.removeAt(1);
+  }
+
+    //Adds class to the set of destinations if it is active today.
+    static Future<void> addClass(Lecture lecture) {
+      if (lecture.classToday()) {
+        addDestination(lecture.location);
+      } else {
+        print('no');
+      }
+    }
+
+  //Sets the user to the chosen position
+  // (Our version of moving for the demo)
+  // You have arrived at a location if your new location was your previous goal
+  //This removes the location that was previously the goal from the list.
+  static Future<void> setUser(String jsonPath) async {
+    String path = interpret(jsonPath);
+    String jsonParameters = await loadDestinationAsset(path);
+    Destination newDestination = await parseJsonForDestination(
+        jsonParameters);
+    Destination previousDestination = destinations[1];
+    destinations[0] = newDestination;
+    if (previousDestination == destinations[0]) {
+      destinations.removeAt(1);
+    }
+    print("FFFFFFFFFFF");
+    print(destinations[0].name);
+    print(destinations[0].address);
+    print(destinations[0].lat);
+    print(destinations[0].lng);
+  }
+
+
+  DestinationHandler();
+}
 
 Future<void> main() async {
   runApp(MaterialApp(
@@ -80,76 +168,16 @@ Future<void> main() async {
 
 class MapViewer extends StatefulWidget {
   @override
-  _MapViewerState createState() => _MapViewerState();
+  MapViewerState createState() => MapViewerState();
 }
 
-class _MapViewerState extends State<MapViewer> {
+class MapViewerState extends State<MapViewer> {
 
 
 
 
 
-  List<Destination> destinations = [];
 
-  //Returns the closer destination to the user among a and b, using the zero indez for user location.
-  Destination whichIsCloser(Destination a, Destination b){
-    var distanceA = sqrt(((a.lat - destinations[0].lat) * (a.lat - destinations[0].lat)) + ((a.lng - destinations[0].lng) * (a.lng - destinations[0].lng)));
-    var distanceB = sqrt(((b.lat - destinations[0].lat) * (b.lat - destinations[0].lat)) + ((b.lng - destinations[0].lng) * (b.lng - destinations[0].lng)));
-    if(distanceA < distanceB){
-      return a;
-    }else{
-      return b;
-    }
-  }
-
-  //Method to add destinations to trip
-  Future<void> addDestination(String jsonPath) async {
-    String path = interpret(jsonPath);
-    String jsonParameters = await loadDestinationAsset(path);
-    Destination newDestination = await parseJsonForDestination(jsonParameters);
-    destinations.add(newDestination);
-  }
-
-  //Sets the first place you want to be (index 1) to the new destination.
-  //Moving everything else back.
-  Future<void> setDestination(String jsonPath) async {
-    String path = interpret(jsonPath);
-    String jsonParameters = await loadDestinationAsset(path);
-    Destination newDestination = await parseJsonForDestination(jsonParameters);
-    destinations.insert(1, newDestination);
-  }
-
-  //Deletes the destination in the 1 spot, or the most recently added destination
-  Future<void> undoDestination(String jsonPath) async {
-    String path = interpret(jsonPath);
-    String jsonParameters = await loadDestinationAsset(path);
-    Destination newDestination = await parseJsonForDestination(jsonParameters);
-    destinations.removeAt(1);
-
-    //Adds class to the set of destinations if it is active today.
-    Future<void> addClass(Lecture lecture) {
-      if (lecture.classToday()) {
-        addDestination(lecture.location);
-      } else {
-
-      }
-    }
-  }
-    //Sets the user to the chosen position
-    // (Our version of moving for the demo)
-    // You have arrived at a location if your new location was your previous goal
-    //This removes the location that was previously the goal from the list.
-    Future<void> setUser(String jsonPath) async {
-      String path = interpret(jsonPath);
-      String jsonParameters = await loadDestinationAsset(path);
-      Destination newDestination = await parseJsonForDestination(
-          jsonParameters);
-      Destination previousDestination = destinations[1];
-      destinations[0] = newDestination;
-      if (previousDestination == destinations[0]) {
-        destinations.removeAt(1);
-      }
-    }
 
     @override
     Widget build(BuildContext context) => MaterialApp(
@@ -185,16 +213,12 @@ class _MapViewerState extends State<MapViewer> {
                     //GO TO SCENE 2
                   }),
               IconButton(
-                //TODO: NEAREST LIBRARY (HAYDEN OR NOBLE)
-
+                //TODO: NEAREST LIBRARY
                   icon: Icon(Icons.book),
                   onPressed: () {
-                    print("EA SPorts, it's in the game.");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UserInputArea()),
-                    );
+                    print("EA Errrrr, it's in the game.");
+
+                    //Set Next step in navigation to nearest food.
                     //GO TO SCENE 2
                   }),
               IconButton(
@@ -202,6 +226,7 @@ class _MapViewerState extends State<MapViewer> {
                   icon: Icon(Icons.fastfood),
                   onPressed: () {
                     print("EA Errrrr, it's in the game.");
+                    DestinationHandler.setDestination("mu");
                     //Set Next step in navigation to nearest food.
                     //GO TO SCENE 2
                   }),
@@ -219,6 +244,7 @@ class _MapViewerState extends State<MapViewer> {
                   icon: Icon(Icons.undo),
                   onPressed: () {
                     print("EA Errrrr, it's in the game.");
+                    DestinationHandler.undoDestination();
                     //Set Next step in navigation to nearest food.
                     //GO TO SCENE 2
                   }),
@@ -249,42 +275,52 @@ class _MapViewerState extends State<MapViewer> {
 
     Future<void> onMapCreated(GoogleMapController controller) async {
       List<Polyline> routes = [];
-      for (var i = 0; i < destinations.length; i++) {
-        if (i < destinations.length - 1) {
-          final polyline = Polyline(
-            polylineId: PolylineId("From " + destinations[i].name + " to " +
-                destinations[i + 1].name),
+      print("testttttt");
+      await DestinationHandler.addDestination("cwhal");
+      await DestinationHandler.addDestination("byac");
+      await DestinationHandler.addDestination("byeng");
+      await DestinationHandler.addDestination("noble");
+      for (var i = 0; i < DestinationHandler.destinations.length; i++) {
+        if (i < DestinationHandler.destinations.length - 1) {
+          var polyline = Polyline(
+            polylineId: PolylineId("From " + DestinationHandler.destinations[i].name + " to " +
+                DestinationHandler.destinations[i + 1].name),
             visible: true,
             points: await googleMapPolyline.getCoordinatesWithLocation(
-                origin: LatLng(destinations[i].lat, destinations[i].lng),
+                origin: LatLng(DestinationHandler.destinations[i].lat, DestinationHandler.destinations[i].lng),
                 destination: LatLng(
-                    destinations[i + 1].lat, destinations[i + 1].lng),
+                    DestinationHandler.destinations[i + 1].lat, DestinationHandler.destinations[i + 1].lng),
                 mode: RouteMode.walking),
-            color: Colors.pink,
+            color: Colors.pink[],
           );
-          routes.add(polyline);
+          await routes.add(polyline);
           //_polyline["From "+destinations[i].name+" to "+destinations[i+1].name] = polyline;
         }
       }
       setState(() {
+        print("THE NUMBER IS" + DestinationHandler.destinations.length.toString());
         _markers.clear();
         _polyline.clear();
-        for (var i = 0; i < destinations.length; i++) {
+        for (var i = 0; i < DestinationHandler.destinations.length; i++) {
+          print("ZZZZZZZZZZZZZZ");
           final marker = Marker(
-            markerId: MarkerId(destinations[i].name),
-            position: LatLng(destinations[i].lat, destinations[i].lng),
+            markerId: MarkerId(DestinationHandler.destinations[i].name),
+            position: LatLng(DestinationHandler.destinations[i].lat, DestinationHandler.destinations[i].lng),
             infoWindow: InfoWindow(
-              title: destinations[i].name,
-              snippet: destinations[i].address,
+              title: DestinationHandler.destinations[i].name,
+              snippet: DestinationHandler.destinations[i].address,
             ),
           );
-          _markers[destinations[i].name] = marker;
-          if (i < destinations.length - 1) {
-            _polyline["From " + destinations[i].name + " to " +
-                destinations[i + 1].name] = routes[i];
+          _markers[DestinationHandler.destinations[i].name] = marker;
+          if (i < DestinationHandler.destinations.length - 1) {
+            _polyline["From " + DestinationHandler.destinations[i].name + " to " +
+                DestinationHandler.destinations[i + 1].name] = routes[i];
             // _polyline["From "+destinations[i].name+" to "+destinations[i+1].name] = polyline
           }
+
         }
+        //ONLY WAY TO REFRESH MAP QUICKLY
+        onMapCreated(controller);
       });
 
   }
@@ -303,6 +339,7 @@ class UserInputArea extends StatelessWidget {
                 icon: Icon(Icons.menu),
                 onPressed: () {
                   print("Beam me up, Scotty!");
+
                   Navigator.pop(context);
 
                   //GO BACK TO SCENE 1
@@ -389,7 +426,7 @@ class DemoArea extends StatelessWidget {
             Text('Deliver features faster'),
             Text('Craft beautiful UIs'),
             TextField(
-              decoration: InputDecoration(labelText: 'Enter your class'),
+              decoration: InputDecoration(labelText: 'Enter your location'),
               controller: demoController,
             ),
             FloatingActionButton(
@@ -397,7 +434,8 @@ class DemoArea extends StatelessWidget {
               backgroundColor: Colors.pink,
               splashColor: Colors.pinkAccent,
               onPressed: () {
-                print(demoController.text);
+                DestinationHandler.setUser(demoController.text);
+
                 // do some function with the user input
               }
             ),
@@ -433,6 +471,7 @@ class ClassSchedulerArea extends StatelessWidget {
               icon: Icon(Icons.menu),
               onPressed: () {
                 print("Beam me up, Scotty!");
+                Navigator.pop(context);
                 /*Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -513,8 +552,8 @@ class ClassSchedulerArea extends StatelessWidget {
           FloatingActionButton(
             backgroundColor: Colors.lightGreenAccent,
             onPressed: () {
-              Lecture lecture = new Lecture(
-                  lectureController.text, M, T, W, Th, F);
+              Lecture lecture = new Lecture(lectureController.text, M, T, W, Th, F);
+              DestinationHandler.addClass(lecture);
               M = false;
               T = false;
               W = false;
