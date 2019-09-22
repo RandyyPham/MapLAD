@@ -72,7 +72,7 @@ class Destination {
   }
 
   //Loads the destination and allows it to be used.
-  Future loadDestination() async {
+/*  Future loadDestination() async {
   String jsonDestination = await loadDestinationAsset();
   Destination destination = parseJsonForDestination(jsonDestination);
 
@@ -82,12 +82,13 @@ class Destination {
     print(destination.address);
     print(destination.lat.toString());
     print(destination.lng.toString());
-  }
+  }*/
   String getDestination(Map decodedJson){
 
   }
 
-  Future<Destination> findDestination(/*String jsonPath*/) async{
-    String jsonDestination = await loadDestinationAsset();
+  //TODO: What this do.
+  Future<Destination> findDestination(String jsonPath) async{
+    String jsonDestination = await loadDestinationAsset(jsonPath);
     return await parseJsonForDestination(jsonDestination);
   }

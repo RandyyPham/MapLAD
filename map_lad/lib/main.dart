@@ -5,10 +5,10 @@ import 'data/destination_parser.dart';
 import 'dart:async' show Future;
 
 
+
 Future<void> main() async {
   runApp(MyApp());
   //Calls the method to print the json file.
-  loadDestination();
 }
 
 class MyApp extends StatefulWidget {
