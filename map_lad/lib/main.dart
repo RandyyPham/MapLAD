@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,14 +48,6 @@ class _MyAppState extends State<MyApp> {
                   ),
                   markers: _markers.values.toSet(),
                 ),
-                SlidingUpPanel(
-                  panel: Center(
-                    child: Text("This is a slide up panel"),
-                  ),
-                  body: Center(
-                    child: Text("This is the body of the slide up panel"),
-                  ),
-                )
               ],
             )
           /*children: <Widget>[
