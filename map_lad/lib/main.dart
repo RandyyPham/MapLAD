@@ -17,6 +17,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  //An array list of destinations, for all intents and purposes it is assumed
+  //That the route goes from index zero destination forwards, traversing
+  //The entire destinations array.
+  var destinations = <Future<Destination>>{}; //TODO: MAKE FUNCTION TO ADD TO ARRAY
+
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
     String a = await loadDestinationAsset();
