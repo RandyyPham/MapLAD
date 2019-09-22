@@ -6,11 +6,11 @@ import 'package:http/http.dart' as http;
 //RELEVANT TUTORIAL http://cogitas.net/parse-json-dart-flutter/
 
 //Creation of a future method that returns a string from the json data
-Future<String> loadDestinationAsset() async {
+Future<String> loadDestinationAsset(String jsonPath) async {
   //We might be able to put the google string in place of the file path.
   //robot is cancer
   print("AAA");
-  final response = await http.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=WXLR%20Building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg');
+  final response = await http.get(jsonPath);
   //return await rootBundle.loadString('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=WXLR%20Building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg');
 
   return response.body;
