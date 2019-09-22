@@ -44,13 +44,50 @@ class _MapViewerState extends State<MapViewer> {
               title: const Text('MapLAD'),
               backgroundColor: Colors.pink[700],
               actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.menu),
+                IconButton( //TODO: NEAREST LIBRARY (HAYDEN OR NOBLE)
+
+                    icon: Icon(Icons.book),
+                    onPressed: () {
+                      print("EA SPorts, it's in the game.");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UserInputArea()),
+                      );
+                      //GO TO SCENE 2
+                    }
+                ),
+                IconButton( //TODO: ADDS MU TO NAVIGATION
+                    icon: Icon(Icons.fastfood),
+                    onPressed: () {
+                      print("EA Errrrr, it's in the game.");
+                     //Set Next step in navigation to nearest food.
+                      //GO TO SCENE 2
+                    }
+                ),
+                IconButton( //TODO: REMOVED CURRENT NAVIGATION TARGET
+                    icon: Icon(Icons.undo),
+                    onPressed: () {
+                      print("EA Errrrr, it's in the game.");
+                      //Set Next step in navigation to nearest food.
+                      //GO TO SCENE 2
+                    }
+                ),
+                IconButton( //TODO: ADDS STARBUCKS TO NAVIGATION
+                    icon: Icon(Icons.star),
+                    onPressed: () {
+                      print("EA Errrrr, it's in the game.");
+                      //Set Next step in navigation to nearest food.
+                      //GO TO SCENE 2
+                    }
+                ),
+                IconButton( //TODO: CLASS SCHEDULE MAKER
+
+                  icon: Icon(Icons.school),
                   onPressed: () {
                     print("EA SPorts, it's in the game.");
                     Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => UserInputArea()),
+                        MaterialPageRoute(builder: (context) => ClassScheduler()),
                     );
                     //GO TO SCENE 2
                   }
@@ -94,7 +131,7 @@ class _MapViewerState extends State<MapViewer> {
    Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MatLAB'),
+        title: const Text('You have spare time! Where to?'),
         backgroundColor: Colors.pink[700],
         actions: <Widget>[
           IconButton(
@@ -127,3 +164,41 @@ class _MapViewerState extends State<MapViewer> {
     )
     );
  }}
+class ClassScheduler extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('MapLAD Class Scheduler'),
+          backgroundColor: Colors.pink[700],
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  print("Scheduling");
+                  Navigator.pop(context);
+
+                  //GO BACK TO SCENE 1
+                }
+            ),
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            Text('Deliver features faster'),
+            Text('Craft beautiful UIs'),
+            TextFormField(
+              decoration: InputDecoration(
+                  labelText: 'Enter your username'
+              ),
+            ),
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.contain, // otherwise the logo will be tiny
+                child: const FlutterLogo(),
+              ),
+            ),
+          ],
+        )
+    );
+  }}
