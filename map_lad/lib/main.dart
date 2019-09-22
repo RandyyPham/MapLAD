@@ -20,15 +20,72 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
+  //Import of polyline list maker
   GoogleMapPolyline googleMapPolyline =
   new  GoogleMapPolyline(apiKey:  "AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+
+  //Text interpreter.
+  String interpret(String name) {
+    //name = textController.text;
+
+    name = name.toLowerCase();
+
+    switch (name) {
+      case 'wxlr':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=wxlr%20hall%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'psf':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=psf%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'sdfc':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=sdfc%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'byeng':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=byeng%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'byac':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=byac%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'coor':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=coor%20hall%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'cpcom':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=cpcom%20building%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'haydn':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Hayden%20library%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'neeb':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=neeb%20hall%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'noble':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=noble%20library%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'mu':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=memorial%20union%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      case 'cwhal':
+        return ("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=cottonwood%20hall%20Arizona%20State%20University&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+        break;
+      default:
+        return ("bye");
+        break;
+    }
+  }
+
+  //Method to add destinations to trip
+  Future<void> addDestination(String jsonPath) async{
+    String jsonParameters = await loadDestinationAsset(jsonPath);
+    Destination newDestination = await parseJsonForDestination(jsonParameters);
+    destinations.add(newDestination);
+  }
+
 
 
   //An array list of destinations, for all intents and purposes it is assumed
   //That the route goes from index zero destination forwards, traversing
   //The entire destinations array.
-  var destinations = <Future<Destination>>{}; //TODO: MAKE FUNCTION TO ADD TO ARRAY
+  var destinations = <Destination>{}; //TODO: MAKE FUNCTION TO ADD TO ARRAY
 
   final Map<String, Marker> _markers = {};
   final Map<String, Polyline>_polyline={};
@@ -44,40 +101,23 @@ class _MyAppState extends State<MyApp> {
           mode:  RouteMode.driving),
       color: Colors.pink,
     );
-/*    final polyline = await Polyline(color: Colors.pink, endCap: Cap.roundCap, startCap: Cap.squareCap,geodesic: true,patterns: ,
-        polylineId: PolylineId("This line"),visible: true, width: 1000,
-        points: await googleMapPolyline.getCoordinatesWithLocation(
-            origin: LatLng(40.677939, -73.941755),
-            destination: LatLng(40.698432, -73.924038),
-            mode:  RouteMode.driving)
-
-    );*/
-
-   /* await googleMapPolyline.getCoordinatesWithLocation(
-        origin: LatLng(40.677939, -73.941755),
-        destination: LatLng(40.698432, -73.924038),
-        mode:  RouteMode.driving);*/
-
-    String a = await loadDestinationAsset();
-    Destination destination = parseJsonForDestination(a);
-    print(destination.name +" IT WORKS");
-    final googleOffices = await locations.getGoogleOffices();
+    //final googleOffices = await locations.getGoogleOffices();
     setState ( () {
 
 
 
 
       _markers.clear();
-      //for (final office in googleOffices.offices) {
+      for (final d in destinations) {
         final marker = Marker(
-          markerId: MarkerId(destination.name),
-          position: LatLng(destination.lat, destination.lng),
+          markerId: MarkerId(d.name),
+          position: LatLng(d.lat, d.lng),
           infoWindow: InfoWindow(
-            title: destination.name,
-            snippet: destination.address,
+            title: d.name,
+            snippet: d.address,
           ),
         );
-        _markers[destination.name] = marker;
+        _markers[d.name] = marker;
       //}
       _polyline["Brooklyn"] = polyline;
     });
