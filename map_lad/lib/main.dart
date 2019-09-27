@@ -217,6 +217,7 @@ class MapViewerState extends State<MapViewer> {
                   icon: Icon(Icons.book),
                   onPressed: () {
                     print("EA Errrrr, it's in the game.");
+                    DestinationHandler.whichIsCloser("NOBLE", "HAYDN");
 
                     //Set Next step in navigation to nearest food.
                     //GO TO SCENE 2
@@ -270,16 +271,20 @@ class MapViewerState extends State<MapViewer> {
     final Map<String, Marker> _markers = {};
   final Map<String, Polyline>_polyline = {};
   //Import of polyline list maker
+    bool firstRun = true;
   GoogleMapPolyline googleMapPolyline =
   new GoogleMapPolyline(apiKey: "AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
 
     Future<void> onMapCreated(GoogleMapController controller) async {
       List<Polyline> routes = [];
       print("testttttt");
-      await DestinationHandler.addDestination("cwhal");
-      await DestinationHandler.addDestination("byac");
-      await DestinationHandler.addDestination("byeng");
-      await DestinationHandler.addDestination("noble");
+      if(firstRun) {
+        await DestinationHandler.addDestination("cwhal");
+        await DestinationHandler.addDestination("byac");
+        await DestinationHandler.addDestination("byeng");
+        await DestinationHandler.addDestination("noble");
+      }
+      firstRun = false;
       for (var i = 0; i < DestinationHandler.destinations.length; i++) {
         if (i < DestinationHandler.destinations.length - 1) {
           var polyline = Polyline(
