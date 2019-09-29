@@ -1,1 +1,4 @@
-MapLAD
+# MapLAD
+This is a navigation app that is supposed to take in a user's inputted class for the five days of the week (Monday - Friday). And then it displays the shortest route that you can take to go from each classes (this is especially helpful for those with back-to-back classes). Instead of going from point A to point B like in Google Maps, you would instead be shown a route that takes you from points A to B to C etc. It also can re-route your current route if you wanted to find the nearest food place or the nearest library. There's even a button just for finding the nearest Starbucks. 
+### Disclaimer
+This is a product of a hackathon. It was built in 3 days, hence it is not a fully fledged product with complete features. It was a good learning exercise of Flutter and Dart and the whole development environment for creating apps. It was fun making this app, and maybe one day the team will come back and improve upon this monstrocity :)
