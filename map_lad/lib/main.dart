@@ -71,7 +71,7 @@ String interpret(String name) {
 
 class DestinationHandler {
   static List<Destination> destinations = [];
-
+  static Destination lastDestination;
 
 
   //Returns the closer destination to the user among a and b, using the zero indez for user location.
@@ -99,11 +99,13 @@ class DestinationHandler {
     String jsonParameters = await loadDestinationAsset(path);
     Destination newDestination = await parseJsonForDestination(jsonParameters);
     await destinations.add(newDestination);
+    lastDestination = newDestination;
     print("HHHHHHH");
     print(destinations[destinations.length-1].name);
     print(destinations[destinations.length-1].address);
     print(destinations[destinations.length-1].lat);
     print(destinations[destinations.length-1].lng);
+
   }
 
   //Sets the first place you want to be (index 1) to the new destination.
@@ -113,6 +115,7 @@ class DestinationHandler {
     String jsonParameters = await loadDestinationAsset(path);
     Destination newDestination = await parseJsonForDestination(jsonParameters);
     destinations.insert(1, newDestination);
+    lastDestination = newDestination;
     print("GGGGGGGGGG");
     print(destinations[1].name);
     print(destinations[1].address);
@@ -122,7 +125,8 @@ class DestinationHandler {
 
   //Deletes the destination in the 1 spot, or the most recently added destination
   static Future<void> undoDestination() async {
-    await destinations.removeAt(1);
+    await destinations.remove(lastDestination);
+    //await destinations.removeAt(1);
   }
 
     //Adds class to the set of destinations if it is active today.
@@ -191,6 +195,7 @@ class MapViewerState extends State<MapViewer> {
 
                   icon: Icon(Icons.code),
                   onPressed: () {
+
                     print("EA SPorts, it's in the game.");
                     Navigator.push(
                       context,
@@ -274,6 +279,11 @@ class MapViewerState extends State<MapViewer> {
     bool firstRun = true;
   GoogleMapPolyline googleMapPolyline =
   new GoogleMapPolyline(apiKey: "AIzaSyAfiqIZIhgw4mjdaH5eo4yfNuFYHdKlevg");
+  void showSnackBar(){
+    final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
 
     Future<void> onMapCreated(GoogleMapController controller) async {
       List<Polyline> routes = [];
@@ -285,6 +295,7 @@ class MapViewerState extends State<MapViewer> {
         await DestinationHandler.addDestination("noble");
       }
       firstRun = false;
+
       for (var i = 0; i < DestinationHandler.destinations.length; i++) {
         if (i < DestinationHandler.destinations.length - 1) {
           var polyline = Polyline(
@@ -293,17 +304,33 @@ class MapViewerState extends State<MapViewer> {
             visible: true,
             points: await googleMapPolyline.getCoordinatesWithLocation(
                 origin: LatLng(DestinationHandler.destinations[i].lat, DestinationHandler.destinations[i].lng),
-                destination: LatLng(
-                    DestinationHandler.destinations[i + 1].lat, DestinationHandler.destinations[i + 1].lng),
-                mode: RouteMode.walking),
+                destination: LatLng(DestinationHandler.destinations[i + 1].lat, DestinationHandler.destinations[i + 1].lng),
+                mode: RouteMode.walking
+            ),
             color: Colors.pink,
+
+              consumeTapEvents: true,
+              onTap: () {
+                print("GHGHGHGHGHGH");
+                final snackBar = SnackBar(
+                  content: Text('Yay! A SnackBar!'),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {
+                      // Some code to undo the change.
+                    },
+                  ),
+                );
+                Scaffold.of(context).showSnackBar(snackBar);
+              },
           );
+
           await routes.add(polyline);
           //_polyline["From "+destinations[i].name+" to "+destinations[i+1].name] = polyline;
         }
       }
       setState(() {
-        print("THE NUMBER IS" + DestinationHandler.destinations.length.toString());
+        print("THE NUMBER IS " + DestinationHandler.destinations.length.toString());
         _markers.clear();
         _polyline.clear();
         for (var i = 0; i < DestinationHandler.destinations.length; i++) {
